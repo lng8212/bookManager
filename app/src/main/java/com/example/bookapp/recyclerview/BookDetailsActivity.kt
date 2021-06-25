@@ -47,7 +47,7 @@ class BookDetailsActivity : AppCompatActivity() {
         ratingBar.rating = item.rating
         author.text = item.author
         title.text = item.title
-        pages.text = item.pages.toString()
+        pages.text = item.pages.toString() + " pages | " + item.review.toString() + " review"
         rate.text = item.rating.toString()
         description.text = item.description
     }
