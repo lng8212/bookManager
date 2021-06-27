@@ -5,10 +5,14 @@ import android.os.Bundle
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
-import android.widget.*
+import android.widget.ImageView
+import android.widget.RatingBar
+import android.widget.SearchView
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.util.Pair
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bookapp.databinding.ActivityMainBinding
@@ -22,8 +26,6 @@ class MainActivity : AppCompatActivity(), BookCallback {
     private lateinit var binding: ActivityMainBinding
     private lateinit var rvBooks: RecyclerView
     private lateinit var bookAdapter: BookAdapter
-    private lateinit var btnAddBook: Button
-    private lateinit var btnRemoveBook: Button
     private var mdata = mutableListOf<Book>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,15 +38,31 @@ class MainActivity : AppCompatActivity(), BookCallback {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
         initViews()
         initmdataBooks()
         setupBookAdapter()
+        setupSearchView()
+        setRecyclerViewItemTouchListener()
+    }
+
+    private fun setupSearchView(){
+        binding?.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                bookAdapter?.getFilter()?.filter(query)
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                bookAdapter?.getFilter()?.filter(newText)
+                return true
+            }
+        })
     }
 
     private fun setupBookAdapter() {
         bookAdapter = BookAdapter(mdata, this)
         rvBooks.adapter = bookAdapter
+
     }
 
     private fun initmdataBooks() {
@@ -136,40 +154,39 @@ class MainActivity : AppCompatActivity(), BookCallback {
     }
 
     private fun initViews() {
-        btnAddBook = binding.btnAdd
-        btnRemoveBook = binding.btnRemove
         rvBooks = binding.rvBook
         rvBooks.layoutManager = LinearLayoutManager(this)
         rvBooks.setHasFixedSize(true)
         rvBooks.itemAnimator = CustomItemAnimator()
-        btnAddBook.setOnClickListener {
-            addBook()
-        }
-        btnRemoveBook.setOnClickListener {
-            removeBook()
-        }
+
     }
 
-    private fun removeBook() {
-        if (mdata.size>1){
-            mdata.removeAt(1)
-            bookAdapter.notifyItemRemoved(1)
-        }
-        else if (mdata.size==1){
-            mdata.removeAt(0)
-            bookAdapter.notifyItemRemoved(0)
-        }
-        else Toast.makeText(this,"List Book is empty!",Toast.LENGTH_SHORT).show()
+    private fun setRecyclerViewItemTouchListener() {
+        var itemTouch = object : ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT){
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ): Boolean {
+                return false
+            }
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                val pos = viewHolder.adapterPosition
+                mdata.removeAt(pos)
+                bookAdapter.notifyItemRemoved(pos)
 
+            }
+        }
+        val itemTouchHelper = ItemTouchHelper(itemTouch)
+        itemTouchHelper.attachToRecyclerView(rvBooks)
     }
 
     private fun addBook() {
         val book = Book("", "", "", "", 2, 2, 2.0F, R.drawable.book1)
-        if(mdata.isEmpty()) {
+        if (mdata.isEmpty()) {
             mdata.add(0, book)
             bookAdapter.notifyItemInserted(0)
-        }
-        else {
+        } else {
             mdata.add(1, book)
             bookAdapter.notifyItemInserted(1)
         }
@@ -198,7 +215,7 @@ class MainActivity : AppCompatActivity(), BookCallback {
 
         val optionsCompat =
             ActivityOptionsCompat.makeSceneTransitionAnimation(this, p1, p2, p3, p4, p5, p6, p7)
-        startActivity(intent,optionsCompat.toBundle())
+        startActivity(intent, optionsCompat.toBundle())
     }
 
 

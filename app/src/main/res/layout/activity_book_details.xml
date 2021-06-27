@@ -6,113 +6,164 @@
     android:layout_height="match_parent"
     tools:context=".recyclerview.BookDetailsActivity">
 
-    <ImageView
-        android:id="@+id/container"
-        android:layout_width="0dp"
-        android:layout_height="150dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:background="@drawable/container_bg"
-        android:transitionName="containerTN"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.146" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp">
 
-    <ImageView
-        android:id="@+id/item_book_img"
-        android:layout_width="100dp"
-        android:layout_height="150dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="112dp"
-        android:scaleType="centerCrop"
-        android:transitionName="bookTN"
-        app:layout_constraintStart_toStartOf="@+id/container"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/book1" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/item_book_pagesrev"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
-        android:text="816 pages | 5 review"
-        android:transitionName="bookpagesTN"
-        app:layout_constraintStart_toEndOf="@+id/item_book_img"
-        app:layout_constraintTop_toBottomOf="@+id/item_book_author" />
+            <ImageView
+                android:id="@+id/container"
+                android:layout_width="0dp"
+                android:layout_height="150dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/container_bg"
+                android:transitionName="containerTN"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.146" />
 
-    <TextView
-        android:id="@+id/details_desc"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="32dp"
-        android:lineSpacingExtra="8sp"
-        android:text="@string/lorem_text"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/item_book_img" />
+            <ImageView
+                android:id="@+id/item_book_img"
+                android:layout_width="100dp"
+                android:layout_height="150dp"
+                android:scaleType="centerCrop"
+                android:transitionName="bookTN"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/container"
+                app:layout_constraintHorizontal_bias="0.135"
+                app:layout_constraintStart_toStartOf="@+id/container"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.211"
+                app:srcCompat="@drawable/book1" />
 
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/item_book_ratingbar"
-        app:layout_constraintEnd_toEndOf="@+id/container"
-        app:layout_constraintTop_toBottomOf="@+id/item_book_author"
-        app:layout_constraintVertical_bias="0.634"
-        app:srcCompat="@drawable/ic_favorite_black_24dp"
-        app:tint="@color/fav_icon_tint" />
+            <TextView
+                android:id="@+id/item_book_pagesrev"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="4dp"
+                android:text="816 pages | 5 review"
+                android:transitionName="bookpagesTN"
+                app:layout_constraintBottom_toBottomOf="@+id/item_book_img"
+                app:layout_constraintEnd_toEndOf="@+id/container"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/item_book_img"
+                app:layout_constraintTop_toBottomOf="@+id/item_book_author"
+                app:layout_constraintVertical_bias="0.037" />
 
-    <TextView
-        android:id="@+id/item_book_title"
-        android:layout_width="220dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:text="90 Chân Dung Văn Hóa Văn Chương Việt"
-        android:textStyle="bold"
-        android:transitionName="booktitleTN"
-        app:layout_constraintStart_toEndOf="@+id/item_book_img"
-        app:layout_constraintTop_toTopOf="@+id/item_book_img" />
+            <TextView
+                android:id="@+id/details_desc"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="32dp"
+                android:lineSpacingExtra="8sp"
+                android:text="@string/lorem_text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/item_book_img" />
 
-    <RatingBar
-        android:id="@+id/item_book_ratingbar"
-        style="?android:attr/ratingBarStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="4dp"
-        android:transitionName="rateTN"
-        app:layout_constraintStart_toEndOf="@+id/item_book_img"
-        app:layout_constraintTop_toBottomOf="@+id/container" />
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintBottom_toBottomOf="@+id/item_book_ratingbar"
+                app:layout_constraintEnd_toEndOf="@+id/container"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toEndOf="@+id/item_book_pagesrev"
+                app:layout_constraintTop_toBottomOf="@+id/item_book_author"
+                app:layout_constraintVertical_bias="0.0"
+                app:srcCompat="@drawable/ic_favorite_black_24dp"
+                app:tint="@color/fav_icon_tint" />
 
-    <TextView
-        android:id="@+id/item_book_author"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="4dp"
-        android:text="By GS. Phong Lê"
-        android:transitionName="authorTN"
-        app:layout_constraintStart_toEndOf="@+id/item_book_img"
-        app:layout_constraintTop_toBottomOf="@+id/item_book_title" />
+            <TextView
+                android:id="@+id/item_book_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="8dp"
+                android:text="90 Chân Dung Văn Hóa Văn Chương Việt"
+                android:textStyle="bold"
+                android:transitionName="booktitleTN"
+                app:layout_constraintBottom_toBottomOf="@+id/item_book_img"
+                app:layout_constraintEnd_toEndOf="@+id/container"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/item_book_img"
+                app:layout_constraintTop_toTopOf="@+id/item_book_img"
+                app:layout_constraintVertical_bias="0.096" />
 
-    <TextView
-        android:id="@+id/item_book_score"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:text="score"
-        app:layout_constraintBottom_toBottomOf="@+id/item_book_ratingbar"
-        app:layout_constraintStart_toEndOf="@+id/item_book_ratingbar"
-        app:layout_constraintTop_toTopOf="@+id/item_book_ratingbar"
-        app:layout_constraintVertical_bias="1.0" />
+            <RatingBar
+                android:id="@+id/item_book_ratingbar"
+                style="?android:attr/ratingBarStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="4dp"
+                android:transitionName="rateTN"
+                app:layout_constraintBottom_toBottomOf="@+id/item_book_img"
+                app:layout_constraintEnd_toEndOf="@+id/container"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/item_book_img"
+                app:layout_constraintTop_toBottomOf="@+id/container"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <TextView
+                android:id="@+id/item_book_author"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="4dp"
+                android:text="By GS. Phong Lê"
+                android:transitionName="authorTN"
+                app:layout_constraintBottom_toBottomOf="@+id/item_book_img"
+                app:layout_constraintEnd_toEndOf="@+id/container"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/item_book_img"
+                app:layout_constraintTop_toBottomOf="@+id/item_book_title"
+                app:layout_constraintVertical_bias="0.049" />
+
+            <TextView
+                android:id="@+id/item_book_score"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="score"
+                app:layout_constraintBottom_toBottomOf="@+id/item_book_ratingbar"
+                app:layout_constraintEnd_toStartOf="@+id/imageView3"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/item_book_ratingbar"
+                app:layout_constraintTop_toTopOf="@+id/item_book_ratingbar"
+                app:layout_constraintVertical_bias="1.0" />
+
+            <TextView
+                android:id="@+id/hyper_link"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="12dp"
+                android:text="More information"
+                android:textColor="#263DBF"
+                android:textStyle=""
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/details_desc"
+                app:layout_constraintVertical_bias="0.123" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

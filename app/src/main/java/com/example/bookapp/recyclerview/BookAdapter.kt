@@ -2,6 +2,7 @@ package com.example.bookapp.recyclerview
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Filter
 import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
@@ -12,7 +13,7 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.example.bookapp.databinding.ItemBookBinding
 import com.example.bookapp.model.Book
 
-class BookAdapter(var mdata: List<Book>, var callback: BookCallback) :
+class BookAdapter(var mdata: MutableList<Book>, var callback: BookCallback) :
     RecyclerView.Adapter<BookAdapter.bookviewholder>() {
 
     inner class bookviewholder(val binding: ItemBookBinding) :
@@ -40,12 +41,51 @@ class BookAdapter(var mdata: List<Book>, var callback: BookCallback) :
             }
         }
     }
+    private fun deleteItem(index: Int){
 
+    }
+     val matchedData = mutableListOf<Book>().apply {
+         mdata?.let {
+             addAll(it)
+         }
+     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): bookviewholder {
         var binding = ItemBookBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return bookviewholder(binding)
     }
+    fun getFilter():Filter{
+        return dataFilter
+    }
+    private val dataFilter = object:Filter(){
+        override fun performFiltering(constraint: CharSequence?): FilterResults {
+            val filterList = mutableListOf<Book>()
+            if (constraint == null || constraint.isEmpty()){
+                matchedData.let {
+                    filterList.addAll(it)
+                }
+            }
+            else {
+                val query = constraint.toString().trim().toLowerCase()
+                matchedData.forEach {
+                    if (it.author.toLowerCase().contains(query) || it.title.toLowerCase().contains(query) || it.author.toLowerCase().contains(query)){
+                        filterList.add(it)
+                    }
+                }
+            }
+            val results = FilterResults()
+            results.values = filterList
+            return results
 
+        }
+
+        override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
+            if (results?.values is List<*>){
+                mdata.clear()
+                mdata.addAll(results.values as MutableList<Book>)
+                notifyDataSetChanged()
+            }
+        }
+    }
     override fun onBindViewHolder(holder: bookviewholder, position: Int) {
         Glide.with(holder.itemView.context).load(mdata.get(position).drawableResource)
             .transforms(CenterCrop(), RoundedCorners(16)).into(holder.imgBook)
@@ -62,4 +102,6 @@ class BookAdapter(var mdata: List<Book>, var callback: BookCallback) :
     override fun getItemCount(): Int {
         return mdata.size
     }
+
+
 }
