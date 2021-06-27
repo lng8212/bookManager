@@ -1,20 +1,22 @@
-package com.example.bookapp.recyclerview
+package com.example.bookapp
 
 import android.content.Intent
 import android.graphics.Paint
 import android.net.Uri
 import android.os.Bundle
-import android.view.Window
-import android.view.WindowManager
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
-import com.example.bookapp.databinding.ActivityBookDetailsBinding
+import com.example.bookapp.databinding.FragmentDetailBinding
 import com.example.bookapp.model.Book
 
-class BookDetailsActivity : AppCompatActivity() {
+class FragmentDetail : Fragment() {
+
     lateinit var imgbook: ImageView
     lateinit var title: TextView
     lateinit var author: TextView
@@ -22,19 +24,29 @@ class BookDetailsActivity : AppCompatActivity() {
     lateinit var rate: TextView
     lateinit var ratingBar: RatingBar
     lateinit var description: TextView
-    lateinit var binding: ActivityBookDetailsBinding
+    lateinit var binding: FragmentDetailBinding
     lateinit var link: TextView
+    lateinit var book : Book
     val SEARCH_PREFIX = "https://www.google.com/search?q="
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        requestWindowFeature(Window.FEATURE_NO_TITLE); //will hide the title
-        getSupportActionBar()?.hide(); // hide the title bar
-        this.getWindow().setFlags(
-            WindowManager.LayoutParams.FLAG_FULLSCREEN,
-            WindowManager.LayoutParams.FLAG_FULLSCREEN
-        ); //enable full screen
-        binding = ActivityBookDetailsBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        arguments?.let{
+            book = it.getSerializable("bookObject") as Book
+        }
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        binding = FragmentDetailBinding.inflate(inflater,container,false)
+
+        return binding.root
+
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         imgbook = binding.itemBookImg
         ratingBar = binding.itemBookRatingbar
         title = binding.itemBookTitle
@@ -44,16 +56,16 @@ class BookDetailsActivity : AppCompatActivity() {
         description = binding.detailsDesc
         link = binding.hyperLink
         link.paintFlags = Paint.UNDERLINE_TEXT_FLAG
-        val item: Book = intent.getSerializableExtra("bookObject") as Book
-        loadBookData(item)
+        loadBookData(book)
         link.setOnClickListener(){
             link.paintFlags = Paint.FAKE_BOLD_TEXT_FLAG
-            val queryURL: Uri = Uri.parse("${BookDetailsActivity().SEARCH_PREFIX}${title.text}${" Sách"}")
+            val queryURL: Uri = Uri.parse("${FragmentDetail().SEARCH_PREFIX}${title.text}${" Sách"}")
             val intent = Intent(Intent.ACTION_VIEW, queryURL)
             startActivity(intent)
         }
-    }
 
+
+    }
     fun loadBookData(item: Book) {
         Glide.with(this).load(item.drawableResource).into(imgbook)
         ratingBar.rating = item.rating
@@ -63,4 +75,7 @@ class BookDetailsActivity : AppCompatActivity() {
         rate.text = item.rating.toString()
         description.text = item.description
     }
+
+
+
 }

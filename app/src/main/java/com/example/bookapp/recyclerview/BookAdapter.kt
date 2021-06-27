@@ -25,21 +25,13 @@ class BookAdapter(var mdata: MutableList<Book>, var callback: BookCallback) :
         var pages: TextView = binding.itemBookPagesrev
         var rate: TextView = binding.itemBookScore
         var ratingBar: RatingBar = binding.itemBookRatingbar
-
-        init {
+        fun binding (a: Book){
             itemView.setOnClickListener() {
-                callback.onBookItemClick(
-                    adapterPosition,
-                    imgContainer,
-                    imgBook,
-                    title,
-                    author,
-                    pages,
-                    rate,
-                    ratingBar
-                )
+                callback.sendData(a)
+
             }
         }
+
     }
     private fun deleteItem(index: Int){
 
@@ -47,6 +39,7 @@ class BookAdapter(var mdata: MutableList<Book>, var callback: BookCallback) :
      val matchedData = mutableListOf<Book>().apply {
          mdata?.let {
              addAll(it)
+
          }
      }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): bookviewholder {
@@ -95,6 +88,7 @@ class BookAdapter(var mdata: MutableList<Book>, var callback: BookCallback) :
             mdata.get(position).pages.toString() + " pages | " + mdata.get(position).review.toString() + " review"
         holder.rate.text = mdata.get(position).rating.toString()
         holder.ratingBar.rating = mdata.get(position).rating
+        holder.binding(mdata.get(position))
 
     }
 

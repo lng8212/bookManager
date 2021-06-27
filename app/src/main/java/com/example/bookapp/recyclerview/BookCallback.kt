@@ -1,19 +1,8 @@
 package com.example.bookapp.recyclerview
 
-import android.widget.ImageView
-import android.widget.RatingBar
-import android.widget.TextView
+import com.example.bookapp.model.Book
 
 interface BookCallback {
 
-    fun onBookItemClick(
-        pos: Int,
-        imgContainer: ImageView,
-        imgBook: ImageView,
-        title: TextView,
-        authorName: TextView,
-        nbpages: TextView,
-        score: TextView,
-        ratingBar: RatingBar
-    )
+    fun sendData(a : Book)
 }
