@@ -33,9 +33,7 @@ class BookAdapter(var mdata: MutableList<Book>, var callback: BookCallback) :
         }
 
     }
-    private fun deleteItem(index: Int){
 
-    }
      val matchedData = mutableListOf<Book>().apply {
          mdata?.let {
              addAll(it)
