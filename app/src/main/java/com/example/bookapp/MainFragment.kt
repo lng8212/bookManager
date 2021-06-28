@@ -50,15 +50,22 @@ class MainFragment : Fragment(), BookCallback {
         val mAlertDialog =mBuilder.show()
         mDialogView.findViewById<ImageView>(R.id.btnSumbitnew).setOnClickListener(){
             mAlertDialog.dismiss()
-            val title = mAlertDialog.findViewById<EditText>(R.id.titlenew).text.toString()
-            val author = mAlertDialog.findViewById<EditText>(R.id.authornew).text.toString()
-            val descrip = mAlertDialog.findViewById<EditText>(R.id.desnew).text.toString()
-            val page = mAlertDialog.findViewById<EditText>(R.id.pagesnew).text.toString().toInt()
-            val review = mAlertDialog.findViewById<EditText>(R.id.reviewernew).text.toString().toInt()
-            val rating = mAlertDialog.findViewById<EditText>(R.id.ratingnew).text.toString().toFloat()
-            val img = mAlertDialog.findViewById<EditText>(R.id.imagenew).text.toString().toInt()
-            MainActivity.mdata.add(0,Book(title,descrip,author,"",page,review,rating,img))
-            bookAdapter.notifyItemInserted(0)
+            val title = mAlertDialog.findViewById<EditText>(R.id.edttitlenew).text.toString()
+            val author = mAlertDialog.findViewById<EditText>(R.id.edtauthornew).text.toString()
+            val descrip = mAlertDialog.findViewById<EditText>(R.id.edtdesnew).text.toString()
+            val page = mAlertDialog.findViewById<EditText>(R.id.edtpagesnew).text.toString()
+            val review = mAlertDialog.findViewById<EditText>(R.id.edtreviewernew).text.toString()
+            val rating = mAlertDialog.findViewById<EditText>(R.id.edtratingnew).text.toString()
+            val img = mAlertDialog.findViewById<EditText>(R.id.edtimagenew).text.toString()
+            if(!MainActivity.mdata.isEmpty()){
+                MainActivity.mdata.add(1,Book(title,descrip,author,"",page.toInt(),review.toInt(),rating.toFloat(),resources.getIdentifier("book" + img, "drawable","com.example.bookapp")))
+                bookAdapter.notifyItemInserted(1)
+
+            }
+            else {
+                MainActivity.mdata.add(0,Book(title,descrip,author,"",page.toInt(),review.toInt(),rating.toFloat(),resources.getIdentifier("book" + img, "drawable","com.example.bookapp")))
+                bookAdapter.notifyItemInserted(0)
+            }
 
         }
     }
