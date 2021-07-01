@@ -14,7 +14,6 @@
             android:id="@+id/action_blankFragment_to_fragmentDetail"
             app:destination="@id/fragmentDetail"
             app:enterAnim="@anim/nav_default_enter_anim" />
-        <action android:id="@+id/action_blankFragment_to_welcomeFragment" />
     </fragment>
     <fragment
         android:id="@+id/fragmentDetail"
